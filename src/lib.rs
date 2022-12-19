@@ -102,4 +102,5 @@ impl Node {
     }
 
     pub fn publish(&self, topic: &str, head: &[u8], body: &[u8]) {}
+    pub fn subscribe(&self, topic: &str, cb: &dyn Fn(&[u8], &[u8])) {}
 }

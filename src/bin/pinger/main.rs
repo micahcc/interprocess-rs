@@ -8,7 +8,12 @@ fn main() {
     })
     .unwrap();
 
+    let cb = |header: &[u8], body: &[u8]| {
+        println!("head: {:?}, body: {:?}", header, body);
+    };
+
     node.announce("/ping", "", "", b"");
+    node.subscribe("/ping", &cb);
 
     loop {
         thread::sleep(time::Duration::from_millis(250));
