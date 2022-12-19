@@ -1,5 +1,5 @@
 [package]
-name = "day6"
+name = "inps"
 version = "0.1.0"
 authors = ["Micah Chambers <micahc.vt@gmail.com>"]
 edition = "2021"
@@ -8,8 +8,9 @@ edition = "2021"
 
 [dependencies]
 libc = "0.2.138"
+sendfd = "0.4.3"
 
-[[bin]]
-name = "server"
+[[example]]
+name = "pinger"
 test = false
 bench = false
