@@ -10,7 +10,5 @@ edition = "2021"
 libc = "0.2.138"
 sendfd = "0.4.3"
 
-[[example]]
+[[bin]]
 name = "pinger"
-test = false
-bench = false

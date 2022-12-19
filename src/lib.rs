@@ -6,20 +6,20 @@ use std::os::fd::RawFd;
 use std::os::fd::FromRawFd;
 use std::os::unix::net::{UnixListener, UnixStream};
 
-struct NodeConfig {
-    name: String,
-    max_nodes: u32,
+pub struct NodeConfig {
+    pub name: String,
+    pub max_nodes: u32,
 }
 
-struct Node {}
+pub struct Node {}
 
 #[derive(Debug)]
-struct SocketError {
+pub struct SocketError {
     message: String,
 }
 
 impl SocketError {
-    fn new(descr: String) -> SocketError {
+    pub fn new(descr: String) -> SocketError {
         return SocketError { message: descr };
     }
 }
@@ -78,7 +78,7 @@ fn make_seq_socket_raw(sock_path: &str) -> Result<UnixListener, SocketError> {
 }
 
 impl Node {
-    fn new(config: &NodeConfig) -> Result<Node, SocketError> {
+    pub fn new(config: &NodeConfig) -> Result<Node, SocketError> {
         // construct socket
         for i in 0..config.max_nodes {
             let name = format!("\0inps.{:02}", i);
@@ -91,4 +91,15 @@ impl Node {
 
         return Ok(Node {});
     }
+
+    pub fn announce(
+        &self,
+        topic: &str,
+        head_type_name: &str,
+        body_type_name: &str,
+        proto_defs: &[u8],
+    ) {
+    }
+
+    pub fn publish(&self, topic: &str, head: &[u8], body: &[u8]) {}
 }
