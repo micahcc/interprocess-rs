@@ -8,6 +8,7 @@ use std::os::unix::net::{UnixListener, UnixStream};
 
 struct NodeConfig {
     name: String,
+    max_nodes: u32,
 }
 
 struct Node {}
@@ -79,10 +80,14 @@ fn make_seq_socket_raw(sock_path: &str) -> Result<UnixListener, SocketError> {
 impl Node {
     fn new(config: &NodeConfig) -> Result<Node, SocketError> {
         // construct socket
-        let fd = make_seq_socket_raw("\0test")?;
+        for i in 0..config.max_nodes {
+            let name = format!("\0inps.{:02}", i);
+            let listener = make_seq_socket_raw("\0test")?;
+        }
+
+        // construct shared memory segment
 
         // construct futex
-        // construct shared memory segment
 
         return Ok(Node {});
     }
