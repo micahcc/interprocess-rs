@@ -9,6 +9,8 @@ edition = "2021"
 [dependencies]
 libc = "0.2.138"
 sendfd = "0.4.3"
+crc = "3.0.0"
+rand = "0.8.5"
 
 [[bin]]
 name = "pinger"

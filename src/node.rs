@@ -20,6 +20,7 @@ pub struct Node {
     socket_shutdown: EventFd,
     socket_rx: Receiver<Packet>,
     socket_thread_handle: std::thread::JoinHandle<Result<(), SocketError>>,
+    futex: Futex,
 }
 
 fn futex_loop() {
@@ -217,10 +218,10 @@ impl Node {
             }
         }
 
-        // construct shared memory segment
-        let futex = Futex::new();
+        // construct the node infromation shared memory segment
 
-        // construct our futex
+        // construct our notification futex
+        let futex = Futex::new()?;
 
         // Construct socket IO thread with
         // - shutdown event fd so we can turn it off
@@ -237,6 +238,7 @@ impl Node {
             socket_shutdown: shutdown,
             socket_rx: rx,
             socket_thread_handle: socket_thread,
+            futex: futex,
         });
     }
 
